@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .sentiment-card {
+            display: inline-block;
+            width: 30%;
+            margin: 1%;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            vertical-align: top;
+        }
+        .positive { border-left: 4px solid #28a745; }
+        .negative { border-left: 4px solid #dc3545; }
+        .neutral { border-left: 4px solid #ffc107; }
+        .score-display {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+        .recommendations {
+            list-style-type: none;
+            padding: 0;
+        }
+        .recommendations li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        h2 {
+            color: #343a40;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        .sentiment-distribution {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .sentiment-item {
+            text-align: center;
+        }
+        .sentiment-count {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard de Análise do Usuário</h1>
+
+    <div class="dashboard-section">
+        <h2>Dados do Usuário</h2>
+        <div id="user-data">Carregando dados do usuário...</div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Análise de Sentimento</h2>
+        <div id="sentiment-analysis">
+            <div class="score-display">
+                Pontuação Total: <span id="total-score">0</span>
+            </div>
+
+            <div class="sentiment-distribution">
+                <div class="sentiment-item">
+                    <div class="sentiment-count" id="positive-count">0</div>
+                    <div>Positivo</div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-count" id="neutral-count">0</div>
+                    <div>Neutro</div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-count" id="negative-count">0</div>
+                    <div>Negativo</div>
+                </div>
+            </div>
+
+            <h3>Últimos Tweets Analisados</h3>
+            <div id="tweets-analysis"></div>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Recomendações Personalizadas</h2>
+        <ul class="recommendations" id="recommendations-list">
+            <li>Analisando dados para gerar recomendações...</li>
+        </ul>
+    </div>
+
+    <script>
+        fetch('/dashboard')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('user-data').innerText = data.error;
+                    return;
+                }
+
+                // Exibir dados do usuário
+                const userDataDiv = document.getElementById('user-data');
+                userDataDiv.innerHTML = `
+                    <p><strong>Nome:</strong> ${data.name || 'Não informado'}</p>
+                    <p><strong>Email:</strong> ${data.email || 'Não informado'}</p>
+                `;
+
+                // Exibir análise de sentimentos
+                document.getElementById('total-score').textContent = data.total_score || 0;
+
+                // Contar sentimentos
+                const tweetAnalysis = data.tweet_analysis || [];
+                const positiveCount = tweetAnalysis.filter(t => t.sentimento === 'POSITIVO').length;
+                const neutralCount = tweetAnalysis.filter(t => t.sentimento === 'NEUTRO').length;
+                const negativeCount = tweetAnalysis.filter(t => t.sentimento === 'NEGATIVO').length;
+
+                document.getElementById('positive-count').textContent = positiveCount;
+                document.getElementById('neutral-count').textContent = neutralCount;
+                document.getElementById('negative-count').textContent = negativeCount;
+
+                // Exibir tweets analisados
+                const tweetsDiv = document.getElementById('tweets-analysis');
+                tweetsDiv.innerHTML = tweetAnalysis.length > 0 ?
+                    tweetAnalysis.map(tweet => `
+                        <div class="sentiment-card ${tweet.sentimento.toLowerCase()}">
+                            <p><strong>Sentimento:</strong> ${tweet.sentimento}</p>
+                            <p><strong>Confiança:</strong> ${(tweet.confidence * 100).toFixed(1)}%</p>
+                            <p><strong>Tweet:</strong> ${tweet.tweet || 'N/A'}</p>
+                        </div>
+                    `).join('') :
+                    '<p>Nenhum tweet analisado</p>';
+
+                // Exibir recomendações
+                if (data.recommendations && data.recommendations.length > 0) {
+                    const recList = document.getElementById('recommendations-list');
+                    recList.innerHTML = data.recommendations.map(rec => `<li>${rec}</li>`).join('');
+                }
+            })
+            .catch(err => {
+                document.getElementById('user-data').innerText = 'Erro ao carregar dados.';
+                console.error(err);
+            });
+    </script>
+</body>
+</html>

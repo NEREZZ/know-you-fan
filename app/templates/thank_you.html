@@ -1,0 +1,124 @@
+
+<div class="thank-you-container">
+    <meta charset="UTF-8">
+    <h2>Obrigado por responder nosso formulário! 🎉</h2>
+    <p>Seus dados foram registrados com sucesso.</p>
+
+    <div class="next-actions">
+        <h3>O que você gostaria de fazer agora?</h3>
+
+        <a href="{{ url_for('dashboard_view') }}" class="dashboard-btn">
+            Ver Dashboard de Análise 📊
+        </a>
+
+        <p class="or-divider">ou</p>
+
+        <a href="{{ url_for('chatbot') }}" class="chatbot-btn">
+            Falar com nosso Chatbot de eSports 🤖
+        </a>
+
+        <p class="or-divider">ou</p>
+
+        <a href="/" class="return-btn">
+            Voltar à página inicial
+        </a>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #6e45e2, #4e44ce);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .thank-you-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .dashboard-btn, .chatbot-btn {
+        padding: 14px 28px;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-btn {
+        background: linear-gradient(135deg, #45e2a8, #44ce8e);
+    }
+
+    .chatbot-btn {
+        background: linear-gradient(135deg, #6e45e2, #4e44ce);
+    }
+
+    .dashboard-btn:hover {
+        background: linear-gradient(135deg, #44ce8e, #32a87a);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(68, 206, 142, 0.2);
+    }
+
+    .chatbot-btn:hover {
+        background: linear-gradient(135deg, #4e44ce, #3a32a8);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(78, 68, 206, 0.2);
+    }
+
+    .dashboard-btn:active, .chatbot-btn:active {
+        transform: translateY(0);
+    }
+
+    .dashboard-btn::after, .chatbot-btn::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(45deg);
+        pointer-events: none;
+        transition: all 0.5s ease;
+        opacity: 0;
+    }
+
+    .dashboard-btn:hover::after, .chatbot-btn:hover::after {
+        opacity: 1;
+        left: 100%;
+        top: 100%;
+    }
+
+    .return-btn {
+        color: #4e44ce;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .or-divider {
+        margin: 10px 0;
+        position: relative;
+    }
+
+    .next-actions {
+        margin-top: 30px;
+
+    }
+</style>
