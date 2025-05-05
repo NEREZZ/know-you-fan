@@ -1,0 +1,156 @@
+# Modo de Uso do Sistema
+## 1. Instalação e Configuração
+### 1.1. Requisitos Iniciais
+``` bash
+# Criar ambiente virtual
+python -m venv venv
+
+# Ativar ambiente virtual
+# Windows
+venv\Scripts\activate
+# Linux/Mac
+source venv/bin/activate
+
+# Instalar dependências
+pip install -r requirements.txt
+```
+### 1.2. Configuração do Banco de Dados
+``` bash
+# Configurar variáveis de ambiente
+export DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+
+# Executar migrações
+alembic upgrade head
+```
+### 1.3. Configuração das APIs
+- Configurar token do Twitter em `buscaDadosTwitter.py`
+- Configurar chave API do Google AI em `chat_bot.py`
+
+## 2. Executando o Sistema
+### 2.1. Iniciar Servidor
+``` bash
+python app.py
+```
+O servidor iniciará em `http://localhost:5000`
+## 3. Utilizando o Sistema
+### 3.1. Cadastro de Usuário
+1. Acesse a página inicial (`/`)
+2. Preencha o formulário com:
+    - Informações pessoais
+    - Endereço
+    - Preferências de jogos
+    - Perfis de redes sociais
+
+3. Faça upload dos documentos necessários
+4. Clique em "Enviar"
+
+### 3.2. Dashboard
+1. Acesse `/dashboard-view`
+2. Visualize:
+    - Informações do perfil
+    - Análise de engajamento
+    - Recomendações personalizadas
+
+### 3.3. Usando o Chatbot
+1. Acesse `/chatbot`
+2. Digite sua mensagem na caixa de texto
+3. Aguarde a resposta do sistema
+
+### 3.4. Gerenciamento de Documentos
+1. Formatos aceitos: PNG, JPG, JPEG, PDF
+2. Tamanho máximo: 16MB
+3. Upload via formulário principal
+
+## 4. Recursos Administrativos
+### 4.1. Monitoramento
+1. Acessar logs do sistema em `/logs`
+2. Verificar status das APIs
+3. Monitorar métricas de uso
+
+### 4.2. Manutenção
+1. Backup do banco de dados:
+``` bash
+pg_dump dbname > backup.sql
+```
+1. Limpeza de arquivos temporários:
+``` bash
+python manage.py clean_temp
+```
+## 5. Solução de Problemas
+### 5.1. Erros Comuns
+1. **Erro de Upload**
+    - Verificar tamanho do arquivo
+    - Confirmar formato permitido
+
+2. **Erro de API**
+    - Verificar tokens de acesso
+    - Confirmar limites de requisição
+
+3. **Erro de Banco de Dados**
+    - Verificar conexão
+    - Validar permissões
+
+### 5.2. Suporte
+- Email: suporte@exemplo.com
+- Discord: canal #suporte
+- Horário: 9h às 18h
+
+## 6. Boas Práticas
+### 6.1. Uso do Sistema
+1. Manter informações atualizadas
+2. Usar senhas fortes
+3. Fazer logout após uso
+
+### 6.2. Dados
+1. Fazer backup regular
+2. Validar informações inseridas
+3. Manter documentos em dia
+
+## 7. Atualizações
+### 7.1. Atualizar Sistema
+``` bash
+# Atualizar código
+git pull origin main
+
+# Atualizar dependências
+pip install -r requirements.txt
+
+# Atualizar banco de dados
+alembic upgrade head
+```
+### 7.2. Pós-Atualização
+1. Verificar logs
+2. Testar funcionalidades principais
+3. Validar integrações
+
+## 8. Ambiente de Desenvolvimento
+### 8.1. Configuração Local
+``` bash
+# Criar banco de teste
+createdb dbname_test
+
+# Configurar variáveis
+export FLASK_ENV=development
+export FLASK_DEBUG=1
+```
+### 8.2. Testes
+``` bash
+# Executar testes
+python -m pytest tests/
+
+# Verificar cobertura
+coverage run -m pytest
+coverage report
+```
+## 9. Recomendações de Uso
+### 9.1. Performance
+1. Limitar uploads grandes
+2. Usar cache quando possível
+3. Otimizar consultas
+
+### 9.2. Segurança
+1. Trocar senhas regularmente
+2. Manter sistemas atualizados
+3. Monitorar acessos suspeitos
+
+Esta seção de modo de uso fornece um guia completo para instalação, configuração e utilização do sistema, além de boas práticas e soluções para problemas comuns.
