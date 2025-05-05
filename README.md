@@ -1,29 +1,150 @@
-# Documentação de Bibliotecas do Projeto
-## 1. Bibliotecas do Flask e Extensões
-- - Framework web principal `flask`
-- `flask-sqlalchemy` - ORM para banco de dados
-- - Utilitários web e WSGI `werkzeug`
+# Documentação do Projeto
+## 1. Visão Geral do Projeto
+Este é um sistema web desenvolvido em Python/Flask para gerenciar fãs de eSports, com foco especial em análise de engajamento em redes sociais e recomendações personalizadas.
+## 2. Estrutura do Projeto
+``` 
+/
+├── app.py                 # Aplicação principal
+├── buscaDadosTwitter.py  # Módulo de integração com Twitter
+├── chat_bot.py           # Módulo do chatbot
+├── database.py           # Configurações do banco de dados
+├── ai_processing.py      # Processamento de IA
+├── routes.py             # Rotas da aplicação
+├── static/              # Arquivos estáticos
+│   └── uploads/         # Pasta para uploads
+└── templates/           # Templates HTML
+```
+## 3. Componentes Principais
+### 3.1. Sistema de Cadastro () `app.py`
+- Coleta informações pessoais dos usuários
+- Gerencia upload de documentos
+- Armazena preferências de jogos
+- Integração com redes sociais
 
-## 2. Bibliotecas para Banco de Dados
-- `sqlalchemy` - ORM e toolkit SQL
-- - Migrações de banco de dados `alembic`
-- `psycopg2` - Adaptador PostgreSQL
+### 3.2. Análise de Twitter () `buscaDadosTwitter.py`
+- Busca perfil do usuário
+- Coleta tweets recentes
+- Análise de menções à FURIA
+- Cálculo de score de engajamento
 
-## 3. Bibliotecas de Requisições e APIs
-- `requests` - Cliente HTTP para Python
-- `google-ai` - Cliente para API do Google AI (usado no chatbot)
+### 3.3. Chatbot () `chat_bot.py`
+- Integração com Google AI
+- Processamento de mensagens
+- Respostas automatizadas
 
-## 4. Bibliotecas de Sistema
-- `os` - Operações do sistema operacional
-- `datetime` - Manipulação de datas e horários
-- `time` - Funções relacionadas a tempo
-- `json` - Manipulação de dados JSON
+### 3.4. Sistema de Recomendações
+- Baseado em jogos favoritos
+- Análise de sentimentos
+- Score de engajamento
+- Recomendações personalizadas
 
-## 5. Bibliotecas de Template
-- `jinja2` - Engine de template usado pelo Flask
+## 4. Funcionalidades
+### 4.1. Gestão de Usuários
+- Cadastro de informações pessoais
+- Upload de documentos de identificação
+- Gerenciamento de endereços
+- Preferências de jogos
 
-## 6. Observações
-- A biblioteca `google` é utilizada especificamente para o chatbot via API do Google AI
-- As bibliotecas estão configuradas usando o gerenciador de pacotes `virtualenv`
+### 4.2. Integração Social
+- Conexão com perfil do Twitter
+- Análise de engajamento
+- Monitoramento de menções
+- Score de interação
 
-Esta documentação reflete apenas as bibliotecas que estão sendo efetivamente importadas e utilizadas no código fonte do projeto, conforme solicitado.
+### 4.3. Dashboard
+- Visualização de dados do usuário
+- Métricas de engajamento
+- Histórico de interações
+- Recomendações ativas
+
+### 4.4. Sistema de Chat
+- Atendimento automatizado
+- Respostas contextuais
+- Integração com IA
+
+## 5. Rotas da Aplicação
+### 5.1. Rotas Principais
+- `/` - Formulário principal
+- `/submit_form` - Envio de dados
+- `/thank_you` - Confirmação
+- `/dashboard` - Painel do usuário
+- `/chatbot` - Interface do chat
+
+### 5.2. Rotas de API
+- `/dashboard/data` - Dados do usuário
+- `/chatbot/send` - Endpoint do chatbot
+
+## 6. Banco de Dados
+### 6.1. Tabelas Principais
+- `users` - Dados dos usuários
+- `documents` - Documentos enviados
+- `interactions` - Histórico de interações
+
+## 7. Integrações
+### 7.1. Twitter API
+- Autenticação via Bearer Token
+- Coleta de dados do perfil
+- Análise de tweets
+- Métricas de engajamento
+
+### 7.2. Google AI
+- Integração para chatbot
+- Processamento de linguagem natural
+
+## 8. Segurança
+### 8.1. Uploads
+- Validação de tipos de arquivo
+- Limite de tamanho (16MB)
+- Nomes de arquivo seguros
+
+### 8.2. Dados
+- Proteção de rotas
+- Validação de entradas
+- Sanitização de dados
+
+## 9. Tratamento de Erros
+### 9.1. Erros HTTP
+- 404 - Página não encontrada
+- 413 - Arquivo muito grande
+- 500 - Erro interno
+
+### 9.2. Logs
+- Registro de erros
+- Monitoramento de falhas
+- Debug em desenvolvimento
+
+## 10. Configurações do Ambiente
+### 10.1. Requisitos
+- Python 3.13.3
+- Virtualenv
+- PostgreSQL
+
+### 10.2. Variáveis de Ambiente
+- Chaves de API
+- Configurações de banco
+- Tokens de acesso
+
+## 11. Processamento de Dados
+### 11.1. Análise de Sentimentos
+- Processamento de tweets
+- Classificação de conteúdo
+- Cálculo de scores
+
+### 11.2. Recomendações
+- Baseadas em preferências
+- Análise de comportamento
+- Personalização de conteúdo
+
+## 12. Manutenção
+### 12.1. Backups
+- Dados do usuário
+- Documentos enviados
+- Logs do sistema
+
+### 12.2. Monitoramento
+- Performance da aplicação
+- Uso de APIs
+- Erros e exceções
+
+## 13. Considerações Finais
+O sistema foi projetado para ser escalável e modular, permitindo fácil manutenção e adição de novas funcionalidades. A integração com APIs externas e o processamento de dados em tempo real proporcionam uma experiência rica e personalizada para os usuários.
