@@ -1,6 +1,6 @@
 # Documentação do Projeto
 ## 1. Visão Geral do Projeto
-Este é um sistema web desenvolvido em Python/Flask para gerenciar fãs de eSports, com foco especial em análise de engajamento em redes sociais e recomendações personalizadas.
+Este é um sistema web desenvolvido em Python/Flask para gerenciar fãs de eSports, com foco especial em análise de engajamento em redes sociais e recomendações personalizadas com IA.
 ## 2. Estrutura do Projeto
 ``` 
 /
